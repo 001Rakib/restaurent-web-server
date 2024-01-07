@@ -129,9 +129,16 @@ async function run() {
       const result = await userCollection.deleteOne(query);
       res.send(result);
     });
+
     // menu related apis
     app.get("/menu", async (req, res) => {
       const result = await menuCollection.find().toArray();
+      res.send(result);
+    });
+
+    app.post("/menu", verifyToken, verifyAdmin, async (req, res) => {
+      const menuItem = req.body;
+      const result = await menuCollection.insertOne(menuItem);
       res.send(result);
     });
 
